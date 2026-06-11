@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anatomy of an iPhone — Where Every Part Comes From</title>
 <meta name="description" content="An interactive guide to the iPhone supply chain: which company makes each component, where in the world it's made, what it costs, and how it all gets shipped.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23fbfaf7'/><rect x='10' y='5' width='12' height='22' rx='3' fill='none' stroke='%232b5ea7' stroke-width='2.5'/><rect x='13.5' y='8' width='5' height='2.5' rx='1.25' fill='%232b5ea7'/></svg>">
 <style>
   :root {
     --bg: #fbfaf7;
     --surface: #f5f2ec;
-    --surface-2: #eee9df;
     --border: #e6e1d8;
     --text: #1c1b19;
     --muted: #6f6a62;
@@ -83,8 +83,9 @@
     padding: 16px 16px 10px; margin: 0 0 14px; overflow-x: auto;
   }
   .exploded-box svg { min-width: 700px; width: 100%; height: auto; display: block; }
-  .layer { cursor: pointer; transition: opacity .15s ease; }
+  .layer { cursor: pointer; transition: opacity .15s ease; outline: none; }
   .layer:hover { opacity: 0.75; }
+  .layer:focus-visible .base { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 4 3; }
   .layer .base { stroke: #d6cfc0; stroke-width: 1.5; }
   .layer.active .base { stroke: var(--accent); stroke-width: 2.5; }
   .layer.dim { opacity: 0.28; }
@@ -143,7 +144,11 @@
     display: flex; height: 38px; border-radius: 7px; overflow: hidden;
     border: 1px solid var(--border); margin: 14px 0 18px;
   }
-  .bom-seg { position: relative; transition: filter .15s ease; cursor: default; }
+  .bom-seg {
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 11px; font-weight: 600; color: #fff;
+    transition: filter .15s ease; cursor: default; overflow: hidden;
+  }
   .bom-seg:hover { filter: brightness(1.15); }
   .bom-legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; }
   .bom-li { display: flex; align-items: baseline; gap: 8px; font-family: var(--sans); font-size: 13.5px; font-variant-numeric: tabular-nums; }
@@ -256,6 +261,7 @@
     <a href="#components">Components</a>
     <a href="#costs">Costs</a>
     <a href="#journey">Journey</a>
+    <a href="#history">History</a>
     <a href="#logistics">Transportation</a>
     <a href="#notes">Notes</a>
   </div>
@@ -346,6 +352,44 @@
         <h3>6. Flown to the world</h3>
         <div class="where">Everywhere 🌍</div>
         <p>Finished iPhones are air-freighted globally — at launch, Apple charters dozens of cargo flights per week. A phone can go from end-of-line in Zhengzhou to a store shelf in New York in under a week.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HISTORY ================= -->
+  <section id="history">
+    <h2>A decade of change (2016–2026)</h2>
+    <p class="section-note">The map above isn't static — it's the product of ten years of shocks and slow-motion responses. The through-line: from "everything through China" to a hedged, multi-country machine, with Apple steadily replacing suppliers' chips with its own.</p>
+    <div class="journey">
+      <div class="step">
+        <h3>Peak China</h3>
+        <div class="where">2016–2017</div>
+        <p>Zhengzhou's "iPhone City" runs at full scale and nearly every iPhone ships from China. India begins as a side experiment: Wistron assembles the budget iPhone SE in Bangalore (2017), mainly to dodge India's import duties on phones sold there.</p>
+      </div>
+      <div class="step">
+        <h3>The trade war</h3>
+        <div class="where">2018–2019</div>
+        <p>US–China tariffs turn Apple's concentration into a board-level risk, and "China + 1" planning starts in earnest. Apple also buys Intel's modem business for $1B (2019) — the opening move in a decade-long push to replace Qualcomm's silicon with its own.</p>
+      </div>
+      <div class="step">
+        <h3>COVID and the chip shortage</h3>
+        <div class="where">2020–2021</div>
+        <p>Factory shutdowns and a global semiconductor shortage prove that single-country, just-in-time supply has real tail risk. AirPods and iPad capacity shifts to Vietnam, and the M1 Mac transition shows how far Apple's in-house silicon ambitions reach.</p>
+      </div>
+      <div class="step">
+        <h3>The Zhengzhou breaking point</h3>
+        <div class="where">2022</div>
+        <p>A COVID lockdown and worker protests hit iPhone City in the middle of the Pro launch season, costing Apple billions in missed holiday sales. It's widely seen as the moment diversification went from strategy deck to urgent priority.</p>
+      </div>
+      <div class="step">
+        <h3>India scales up</h3>
+        <div class="where">2023–2024</div>
+        <p>Tata buys Wistron's plant to become the first Indian-owned iPhone assembler, then takes over Pegatron's India operations too. The iPhone 15 ships from India on launch day — a first — and TSMC's Arizona fab comes online for older Apple chips.</p>
+      </div>
+      <div class="step">
+        <h3>The tariff era</h3>
+        <div class="where">2025–2026</div>
+        <p>New US tariffs reorder the logistics map almost overnight: India rises to roughly a quarter of global iPhone output and supplies most US-bound units. Apple's own C1 modem and N1 wireless chips ship in volume, and Apple pledges $600B of US investment over four years — including American-made chips, glass, and Face ID lasers.</p>
       </div>
     </div>
   </section>
@@ -495,7 +539,7 @@ const COMPONENTS = [
   {
     key: "camera", icon: "📷", name: "Camera system", cat: "Imaging", cost: "≈ $70–90 (Pro triple) / $35–50 (base)",
     desc: "Image sensors, lenses, and stabilized modules — a three-country relay: Japan → Taiwan → Korea/China.",
-    long: "Sony has made nearly every iPhone camera sensor since 2010, fabbed in Kumamoto and Nagasaki, Japan. Precision lenses come from Largan and Genius in Taiwan. LG Innotek in Korea (plus Foxconn-Sharp and Cowell in China) assembles them into folded-zoom and stabilized modules.",
+    long: "Sony has made nearly every iPhone camera sensor since 2011, fabbed in Kumamoto and Nagasaki, Japan. Precision lenses come from Largan and Genius in Taiwan. LG Innotek in Korea (plus Foxconn-Sharp and Cowell in China) assembles them into folded-zoom and stabilized modules.",
     suppliers: [
       { co: "Sony Semiconductor (sensors)", where: "Kumamoto/Nagasaki, Japan", flag: "🇯🇵",
         note: "Has supplied virtually every iPhone main camera sensor since 2011; its stacked CMOS designs lead the industry by a comfortable margin." },
@@ -572,7 +616,7 @@ const COMPONENTS = [
     long: "The VCSEL lasers that project 30,000 invisible dots come largely from Coherent and Lumentum (USA). STMicroelectronics (France/Italy) supplies time-of-flight sensors; Sony supplies the LiDAR sensor on Pro models. Bosch and TDK-InvenSense provide motion sensors (accelerometer/gyroscope).",
     suppliers: [
       { co: "Coherent / Lumentum (VCSEL lasers)", where: "USA", flag: "🇺🇸",
-        note: "The laser arrays that project Face ID's 30,000 invisible dots — Apple seeded US VCSEL capacity with a $390M award." },
+        note: "The laser arrays that project Face ID's 30,000 invisible dots — Apple seeded US VCSEL capacity with a $390M award to Finisar, now part of Coherent." },
       { co: "STMicroelectronics (ToF, sensors)", where: "France / Italy / Singapore", flag: "🇫🇷🇮🇹",
         note: "Time-of-flight sensors that measure distance by literally timing photons on their round trip." },
       { co: "Sony (LiDAR)", where: "Japan", flag: "🇯🇵",
@@ -699,7 +743,7 @@ const COUNTRIES = [
   { flag: "🇻🇳", name: "Vietnam", tag: "Diversification play", items: [
     ["Luxshare / Foxconn / Goertek plants", "components & sub-assembly"],
     ["Nidec", "motors"],
-    ["(Bigger for AirPods, iPads & Watch", "than for iPhone itself)"],
+    ["Bigger for AirPods, iPads & Watch", "than for the iPhone itself"],
   ]},
   { flag: "🇪🇺", name: "Europe", tag: "Specialty chips & equipment", items: [
     ["STMicroelectronics (FR/IT)", "sensors, power chips"],
@@ -808,8 +852,9 @@ $("#explodedSvg").innerHTML = `
       const x = X0 + i * (SLAB_W + GAP) + (i > 0 ? BREAK : 0) + (i === DIAGRAM.length - 1 ? BREAK : 0);
       const cx = x + SLAB_W / 2;
       const ly = Y0 + SLAB_H + 18;
+      const label = d.key === "materials" ? "Raw materials" : byKey[d.key].name;
       return `
-      <g class="layer" data-key="${d.key}">
+      <g class="layer" data-key="${d.key}" tabindex="0" role="button" aria-label="${label} — view details">
         <rect class="base" x="${x}" y="${Y0}" width="${SLAB_W}" height="${SLAB_H}" rx="8" fill="${d.fill}"/>
         ${GLYPHS[d.key](cx, Y0 + SLAB_H / 2)}
         <text class="lbl" x="${cx + 5}" y="${ly}" text-anchor="end" transform="rotate(-38 ${cx + 5} ${ly})">${d.short}</text>
@@ -849,9 +894,13 @@ function renderDetail() {
     </div>
   `;
 }
-document.querySelectorAll(".layer").forEach(l =>
-  l.addEventListener("click", () => { selectedKey = l.dataset.key; renderDetail(); })
-);
+document.querySelectorAll(".layer").forEach(l => {
+  const select = () => { selectedKey = l.dataset.key; renderDetail(); };
+  l.addEventListener("click", select);
+  l.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); }
+  });
+});
 
 // --- Region filter: dim parts the region doesn't supply, show its contributions ---
 let activeRegion = "All";
@@ -906,7 +955,7 @@ const BOM = [
 ];
 const bomTotal = BOM.reduce((s, b) => s + b.usd, 0);
 $("#bomBar").innerHTML = BOM.map(b =>
-  `<div class="bom-seg" style="width:${(b.usd / bomTotal * 100).toFixed(2)}%; background:${b.color};" title="${b.name}: ~$${b.usd}"></div>`
+  `<div class="bom-seg" style="width:${(b.usd / bomTotal * 100).toFixed(2)}%; background:${b.color};" title="${b.name}: ~$${b.usd}">${b.usd >= 37 ? "$" + b.usd : ""}</div>`
 ).join("");
 $("#bomLegend").innerHTML = BOM.map(b => `
   <div class="bom-li">
