@@ -7,7 +7,7 @@ dependencies: just `index.html`.
 ## Live site
 
 Published via GitHub Pages (branch `main`, root folder):
-http://www.bwang.io/iphone-supply-chain/
+http://www.bwang.io/electabuzz/
 
 To publish changes, just push to `main` — Pages redeploys automatically.
 
