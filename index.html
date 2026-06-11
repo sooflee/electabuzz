@@ -59,30 +59,41 @@
     color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 600;
   }
   nav.toc a:hover { color: var(--accent); background: var(--surface); text-decoration: none; }
+  nav.toc a.cur { color: var(--accent); background: var(--surface); }
 
   /* ---------- Sections ---------- */
   section { margin: 36px 0; }
   h2 { font-size: 23px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 .5em; }
   .section-note { margin: 0 0 1em; max-width: 720px; }
 
-  /* ---------- Stat cards ---------- */
-  .statgrid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 18px; margin: 22px 0;
+  /* ---------- Takeaways ---------- */
+  .takeaways {
+    background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 16px 20px; margin: 24px 0 8px;
   }
-  .stat { text-align: center; }
-  .stat .value { font-size: 34px; font-weight: 700; line-height: 1; color: var(--accent); }
-  .stat .label {
-    font-family: var(--sans); color: var(--muted); font-size: 12.5px;
-    margin-top: 7px; line-height: 1.4;
+  .takeaways .kicker {
+    font-family: var(--sans); color: var(--accent); letter-spacing: .14em;
+    text-transform: uppercase; font-size: 11px; font-weight: 700; margin-bottom: 8px;
   }
+  .takeaways ol { padding-left: 1.25em; }
+  .takeaways li { font-size: 15.5px; line-height: 1.6; margin: .4em 0; color: var(--muted); }
+  .takeaways li b { color: var(--text); }
 
   /* ---------- Holistic exploded diagram ---------- */
   .exploded-box {
     background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
-    padding: 16px 16px 10px; margin: 0 0 14px; overflow-x: auto;
+    padding: 16px 16px 10px; margin: 0 0 14px; position: relative;
   }
+  #explodedSvg { overflow-x: auto; }
   .exploded-box svg { min-width: 700px; width: 100%; height: auto; display: block; }
+  @media (max-width: 760px) {
+    /* edge fade signals the diagram scrolls sideways */
+    .exploded-box::after {
+      content: ""; position: absolute; top: 1px; bottom: 1px; right: 1px; width: 30px;
+      background: linear-gradient(to right, rgba(245,242,236,0), var(--surface));
+      border-radius: 0 9px 9px 0; pointer-events: none;
+    }
+  }
   .layer { cursor: pointer; transition: opacity .15s ease; outline: none; }
   .layer:hover { opacity: 0.75; }
   .layer:focus-visible .base { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 4 3; }
@@ -106,7 +117,7 @@
     font-family: var(--sans); color: var(--accent); font-size: 11px;
     text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 10px;
   }
-  .detail-panel p { color: var(--muted); font-size: 15.5px; line-height: 1.6; margin-bottom: 12px; }
+  .detail-panel p { color: var(--muted); font-size: 15.5px; line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
   .suppliers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px; }
   .supplier {
     padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
@@ -150,6 +161,7 @@
     transition: filter .15s ease; cursor: default; overflow: hidden;
   }
   .bom-seg:hover { filter: brightness(1.15); }
+  @media (max-width: 560px) { .bom-seg { font-size: 0; } } /* too narrow for inline values; legend has them */
   .bom-legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; }
   .bom-li { display: flex; align-items: baseline; gap: 8px; font-family: var(--sans); font-size: 13.5px; font-variant-numeric: tabular-nums; }
   .bom-li .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; align-self: center; }
@@ -261,19 +273,23 @@
     <a href="#components">Components</a>
     <a href="#costs">Costs</a>
     <a href="#journey">Journey</a>
-    <a href="#history">History</a>
     <a href="#logistics">Transportation</a>
+    <a href="#history">History</a>
     <a href="#notes">Notes</a>
   </div>
 </nav>
 
 <main class="wrap">
 
-  <div class="statgrid">
-    <div class="stat"><div class="value">~2,700</div><div class="label">parts inside one phone</div></div>
-    <div class="stat"><div class="value">50+</div><div class="label">countries in the chain</div></div>
-    <div class="stat"><div class="value">~200</div><div class="label">major suppliers</div></div>
-    <div class="stat"><div class="value">0</div><div class="label">countries that could build it alone</div></div>
+  <div class="takeaways">
+    <div class="kicker">If you only remember five things</div>
+    <ol>
+      <li><b>No country could build it alone.</b> The US designs, Taiwan fabricates the chips, Korea and Japan supply displays and sensors, China and India assemble — about 2,700 parts from 200 suppliers across 50+ countries.</li>
+      <li><b>Taiwan is the chokepoint.</b> Every A-series chip is made by a single company, TSMC, mostly on one island.</li>
+      <li><b>The parts cost ~$550 of a $1,199 phone.</b> The other half pays for R&D, software, marketing, logistics — and Apple's margin.</li>
+      <li><b>Almost every iPhone flies.</b> Air freight adds only ~$2–4 per phone, so Apple charters 747s rather than wait weeks on ships.</li>
+      <li><b>India is the decade's big shift.</b> From a side experiment in 2017 to roughly a quarter of output — and most US-bound iPhones today.</li>
+    </ol>
   </div>
 
   <!-- ================= COMPONENTS (holistic exploded diagram) ================= -->
@@ -356,44 +372,6 @@
     </div>
   </section>
 
-  <!-- ================= HISTORY ================= -->
-  <section id="history">
-    <h2>A decade of change (2016–2026)</h2>
-    <p class="section-note">The map above isn't static — it's the product of ten years of shocks and slow-motion responses. The through-line: from "everything through China" to a hedged, multi-country machine, with Apple steadily replacing suppliers' chips with its own.</p>
-    <div class="journey">
-      <div class="step">
-        <h3>Peak China</h3>
-        <div class="where">2016–2017</div>
-        <p>Zhengzhou's "iPhone City" runs at full scale and nearly every iPhone ships from China. India begins as a side experiment: Wistron assembles the budget iPhone SE in Bangalore (2017), mainly to dodge India's import duties on phones sold there.</p>
-      </div>
-      <div class="step">
-        <h3>The trade war</h3>
-        <div class="where">2018–2019</div>
-        <p>US–China tariffs turn Apple's concentration into a board-level risk, and "China + 1" planning starts in earnest. Apple also buys Intel's modem business for $1B (2019) — the opening move in a decade-long push to replace Qualcomm's silicon with its own.</p>
-      </div>
-      <div class="step">
-        <h3>COVID and the chip shortage</h3>
-        <div class="where">2020–2021</div>
-        <p>Factory shutdowns and a global semiconductor shortage prove that single-country, just-in-time supply has real tail risk. AirPods and iPad capacity shifts to Vietnam, and the M1 Mac transition shows how far Apple's in-house silicon ambitions reach.</p>
-      </div>
-      <div class="step">
-        <h3>The Zhengzhou breaking point</h3>
-        <div class="where">2022</div>
-        <p>A COVID lockdown and worker protests hit iPhone City in the middle of the Pro launch season, costing Apple billions in missed holiday sales. It's widely seen as the moment diversification went from strategy deck to urgent priority.</p>
-      </div>
-      <div class="step">
-        <h3>India scales up</h3>
-        <div class="where">2023–2024</div>
-        <p>Tata buys Wistron's plant to become the first Indian-owned iPhone assembler, then takes over Pegatron's India operations too. The iPhone 15 ships from India on launch day — a first — and TSMC's Arizona fab comes online for older Apple chips.</p>
-      </div>
-      <div class="step">
-        <h3>The tariff era</h3>
-        <div class="where">2025–2026</div>
-        <p>New US tariffs reorder the logistics map almost overnight: India rises to roughly a quarter of global iPhone output and supplies most US-bound units. Apple's own C1 modem and N1 wireless chips ship in volume, and Apple pledges $600B of US investment over four years — including American-made chips, glass, and Face ID lasers.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= TRANSPORTATION ================= -->
   <section id="logistics">
     <h2>Transportation: the supply chain's nervous system</h2>
@@ -465,6 +443,44 @@
       </div>
     </div>
     <p class="hint" style="max-width:720px">The deeper logic: a new iPhone loses value every week it sits unsold, and demand in week one is enormous. Cook's doctrine — "inventory is fundamentally evil" — makes the $3 flight the cheapest insurance in the building.</p>
+  </section>
+
+  <!-- ================= HISTORY ================= -->
+  <section id="history">
+    <h2>A decade of change (2016–2026)</h2>
+    <p class="section-note">The map above isn't static — it's the product of ten years of shocks and slow-motion responses. The through-line: from "everything through China" to a hedged, multi-country machine, with Apple steadily replacing suppliers' chips with its own.</p>
+    <div class="journey">
+      <div class="step">
+        <h3>Peak China</h3>
+        <div class="where">2016–2017</div>
+        <p>Zhengzhou's "iPhone City" runs at full scale and nearly every iPhone ships from China. India begins as a side experiment: Wistron assembles the budget iPhone SE in Bangalore (2017), mainly to dodge India's import duties on phones sold there.</p>
+      </div>
+      <div class="step">
+        <h3>The trade war</h3>
+        <div class="where">2018–2019</div>
+        <p>US–China tariffs turn Apple's concentration into a board-level risk, and "China + 1" planning starts in earnest. Apple also buys Intel's modem business for $1B (2019) — the opening move in a decade-long push to replace Qualcomm's silicon with its own.</p>
+      </div>
+      <div class="step">
+        <h3>COVID and the chip shortage</h3>
+        <div class="where">2020–2021</div>
+        <p>Factory shutdowns and a global semiconductor shortage prove that single-country, just-in-time supply has real tail risk. AirPods and iPad capacity shifts to Vietnam, and the M1 Mac transition shows how far Apple's in-house silicon ambitions reach.</p>
+      </div>
+      <div class="step">
+        <h3>The Zhengzhou breaking point</h3>
+        <div class="where">2022</div>
+        <p>A COVID lockdown and worker protests hit iPhone City in the middle of the Pro launch season, costing Apple billions in missed holiday sales. It's widely seen as the moment diversification went from strategy deck to urgent priority.</p>
+      </div>
+      <div class="step">
+        <h3>India scales up</h3>
+        <div class="where">2023–2024</div>
+        <p>Tata buys Wistron's plant to become the first Indian-owned iPhone assembler, then takes over Pegatron's India operations too. The iPhone 15 ships from India on launch day — a first — and TSMC's Arizona fab comes online for older Apple chips.</p>
+      </div>
+      <div class="step">
+        <h3>The tariff era</h3>
+        <div class="where">2025–2026</div>
+        <p>New US tariffs reorder the logistics map almost overnight: India rises to roughly a quarter of global iPhone output and supplies most US-bound units. Apple's own C1 modem and N1 wireless chips ship in volume, and Apple pledges $600B of US investment over four years — including American-made chips, glass, and Face ID lasers.</p>
+      </div>
+    </div>
   </section>
 
   <!-- ================= NOTES ================= -->
@@ -895,7 +911,13 @@ function renderDetail() {
   `;
 }
 document.querySelectorAll(".layer").forEach(l => {
-  const select = () => { selectedKey = l.dataset.key; renderDetail(); };
+  const select = () => {
+    selectedKey = l.dataset.key;
+    renderDetail();
+    // on small screens the panel sits below the fold — bring it into view
+    if (window.matchMedia("(max-width: 760px)").matches)
+      $("#detailPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
   l.addEventListener("click", select);
   l.addEventListener("keydown", e => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); }
@@ -964,6 +986,18 @@ $("#bomLegend").innerHTML = BOM.map(b => `
     <span class="val">~$${b.usd}</span>
   </div>`).join("");
 
+// --- Scroll-spy: highlight the current section in the sticky nav ---
+const navLinks = {};
+document.querySelectorAll("nav.toc a[href^='#']").forEach(a => navLinks[a.getAttribute("href").slice(1)] = a);
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && navLinks[e.target.id]) {
+      Object.values(navLinks).forEach(a => a.classList.remove("cur"));
+      navLinks[e.target.id].classList.add("cur");
+    }
+  });
+}, { rootMargin: "-25% 0px -65% 0px" });
+document.querySelectorAll("section[id]").forEach(s => spy.observe(s));
 </script>
 </body>
 </html>
