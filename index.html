@@ -217,18 +217,6 @@
   .logi h3 { font-size: 17px; letter-spacing: -0.01em; margin: 0 0 3px; }
   .logi p { color: var(--muted); font-size: 15.5px; line-height: 1.6; margin: 0; max-width: 700px; }
   .logi .figure { color: var(--accent); font-weight: 700; }
-  .freight-compare { display: flex; gap: 14px; flex-wrap: wrap; margin: 22px 0 0; }
-  .freight {
-    flex: 1; min-width: 250px; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 9px; padding: 16px 18px;
-  }
-  .freight.win { border-color: var(--accent); }
-  .freight h3 { font-size: 18px; letter-spacing: -0.01em; margin: 0 0 6px; }
-  .freight ul { list-style: none; }
-  .freight li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; font-family: var(--sans); font-size: 13.5px; font-variant-numeric: tabular-nums; border-top: 1px solid var(--border); }
-  .freight li:first-child { border-top: none; }
-  .freight li span:first-child { color: var(--muted); }
-  .freight li span:last-child { font-weight: 600; text-align: right; }
 
   /* ---------- Materials (rendered in the detail panel) ---------- */
   .materials { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin: 0; }
@@ -382,7 +370,7 @@
         <div class="icon">✈️</div>
         <div>
           <h3>Why air, not sea</h3>
-          <p>An iPhone is extreme value density: a single 747 freighter pallet can hold roughly <span class="figure">$1.5M+ of phones</span>. At that density, air freight adds only <span class="figure">~$2–4 per phone</span> from Asia to the US — trivial against a $1,000 price. Sea would cost cents, but ties up hundreds of millions of dollars of inventory for weeks and risks missing the launch window.</p>
+          <p>An iPhone is extreme value density: a single 747 freighter pallet can hold roughly <span class="figure">$1.5M+ of phones</span>, so flying Asia → US adds only <span class="figure">~$2–4 per phone</span> and arrives in <span class="figure">1–3 days</span>. Sea would cost pennies (~$0.10–0.30 per phone) but takes 3–5 weeks plus port time — locking up <span class="figure">$100M+ of inventory per ship</span> and risking the launch window. So finished iPhones fly; the slow boat is for cables, cases, and accessories.</p>
         </div>
       </div>
       <div class="logi">
@@ -422,26 +410,6 @@
       </div>
     </div>
 
-    <div class="freight-compare">
-      <div class="freight win">
-        <h3>✈️ Air freight (what Apple uses)</h3>
-        <ul>
-          <li><span>Transit, Asia → US</span><span>1–3 days</span></li>
-          <li><span>Cost per phone</span><span>~$2–4</span></li>
-          <li><span>Inventory locked in transit</span><span>Days</span></li>
-          <li><span>Best for</span><span>iPhones, launches, restocks</span></li>
-        </ul>
-      </div>
-      <div class="freight">
-        <h3>🚢 Sea freight (the road not taken)</h3>
-        <ul>
-          <li><span>Transit, Asia → US</span><span>3–5 weeks + port time</span></li>
-          <li><span>Cost per phone</span><span>~$0.10–0.30</span></li>
-          <li><span>Inventory locked in transit</span><span>Weeks (≈ $100M+ per ship of phones)</span></li>
-          <li><span>Best for</span><span>Cables, cases, some accessories</span></li>
-        </ul>
-      </div>
-    </div>
     <p class="hint" style="max-width:720px">The deeper logic: a new iPhone loses value every week it sits unsold, and demand in week one is enormous. Cook's doctrine — "inventory is fundamentally evil" — makes the $3 flight the cheapest insurance in the building.</p>
   </section>
 
